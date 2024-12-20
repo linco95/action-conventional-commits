@@ -1,5 +1,5 @@
 import { context } from '@actions/github'
-import { endGroup, error, getInput, info, setFailed, startGroup } from '@actions/core'
+import { endGroup, getInput, info, setFailed, startGroup } from '@actions/core'
 
 import isValidCommitMessage from './isValidCommitMesage'
 import { extractCommits } from './extractCommits'
@@ -23,7 +23,7 @@ async function run() {
     if (isValid) {
       info(`✅ ${message}`)
     } else {
-      error(`🚩 ${message}`)
+      info(`🚩 ${message}`)
     }
   })
   endGroup()
