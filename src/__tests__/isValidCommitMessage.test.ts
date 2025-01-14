@@ -23,4 +23,26 @@ describe('isValidCommitMessage tests', () => {
       expect(isValidCommitMessage(msg)).toBe(expected)
     })
   })
+
+  describe("should handle the 'availableTypes' parameter correctly", () => {
+    test.each<[string, string[], boolean]>([
+      ['chore(nice-one): doing this right', ['chore', 'fix'], true],
+      ['feat!: change all the things', ['chore', 'fix'], false],
+      ['fix(user)!: a fix with some breaking changes', ['chore', 'feat'], false],
+      ['fix: menu must open on shortcut press', ['chore', 'fix'], true],
+      ['something: should not work', ['chore', 'fix'], false],
+      ['fixes something', ['chore', 'fix'], false],
+      ['🚧 fix: menu must open on shortcut press', ['chore', 'fix'], true],
+      ['fix(menus): menu must open on shortcut press', ['chore', 'fix'], true],
+      ['🚧 fix(menus): menu must open on shortcut press', ['chore', 'fix'], true],
+      ['🚧 fixing something', ['chore', 'fix'], false],
+      ['🚧 something: should not work', ['chore', 'fix'], false],
+      ['chorz: 123', ['chore', 'fix'], false],
+      ["Merge branch 'master' into feature/branch", ['chore', 'fix'], true],
+      ["Revert 'fix: menu must open on shortcut press'", ['chore', 'fix'], true],
+      ['f1i2x3: menu must open on shortcut press', ['chore', 'fix'], false],
+    ])('%s', (msg, availableTypes, expected) => {
+      expect(isValidCommitMessage(msg, availableTypes)).toBe(expected)
+    })
+  })
 })
