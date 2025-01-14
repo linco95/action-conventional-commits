@@ -37,7 +37,7 @@ function removeScope(message: string): string {
 }
 
 function removeNonAlphaChars(message: string): string {
-  return message.replace(/[^a-z]/g, '')
+  return message.replace(/[^a-z0-9]/g, '')
 }
 
 export default isValidCommitMessage
