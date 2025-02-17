@@ -65,5 +65,5 @@ jobs:
         with:
           cmd: all
       - uses: ./
-        # with:
-        #   allowed-commit-types: "feat,fix" # Optional, set if you want a subset of commit types to be allowed.
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
